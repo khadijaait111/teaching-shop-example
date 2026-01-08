@@ -1,4 +1,4 @@
-import { StatusBadge } from '../../shared/components';
+import { StatusBadge } from '../../components';
 import type { AdminOrder } from '../../api/orders';
 
 type Props = {

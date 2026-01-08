@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from '../contexts/AuthContext';
 import { ProductsContextProvider } from '../contexts/ProductsContext';
-import { ProtectedLayout } from '../shared/layouts';
+import { ProtectedLayout } from '../layouts';
 import CheckoutPage from './page';
 
 const renderCheckoutPage = (isAuthenticated = true) => {

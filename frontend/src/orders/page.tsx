@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { getOrders, type Order } from '../api/orders';
-import { LoadingSpinner, EmptyState, PageContainer } from '../shared/components';
+import { LoadingSpinner, EmptyState, PageContainer } from '../components';
 import OrderCard from './OrderCard';
 
 export default function MyOrdersPage() {

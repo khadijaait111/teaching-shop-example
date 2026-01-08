@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useProducts } from '../contexts/ProductsContext';
 import { createOrder } from '../api/orders';
 import toast from 'react-hot-toast';
-import { PageContainer } from '../shared/components';
+import { PageContainer } from '../components';
 import ProductPreview from './ProductPreview';
 import PaymentForm from './PaymentForm';
 

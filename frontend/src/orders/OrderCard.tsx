@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { StatusBadge } from '../shared/components';
+import { StatusBadge } from '../components';
 import type { Order } from '../api/orders';
 
 type Props = {

@@ -47,9 +47,8 @@ src/
 ├── checkout/         # Checkout page + payment components
 ├── orders/           # Orders list + order detail pages
 ├── admin/orders/     # Admin orders page + admin components
-├── shared/
-│   ├── components/   # LoadingSpinner, StatusBadge, EmptyState, PageContainer
-│   └── layouts/      # Header, ProtectedLayout, AdminLayout
+├── components/       # LoadingSpinner, StatusBadge, EmptyState, PageContainer
+├── layouts/          # Header, ProtectedLayout, AdminLayout
 ├── contexts/         # AuthContext, ProductsContext
 ├── api/              # API clients (auth, products, orders)
 ├── App.tsx           # Route definitions
@@ -62,8 +61,8 @@ src/
 - `src/contexts/AuthContext.tsx` - Authentication state (token, user, login/logout)
 - `src/contexts/ProductsContext.tsx` - Global products state management
 - `src/api/` - API clients (auth.ts, products.ts, orders.ts)
-- `src/shared/components/` - Reusable UI components
-- `src/shared/layouts/` - App-level layouts (Header, ProtectedLayout, AdminLayout)
+- `src/components/` - Reusable UI components
+- `src/layouts/` - App-level layouts (Header, ProtectedLayout, AdminLayout)
 
 **Backend Key Files:**
 - `core/api/models.py` - Product and Order models
@@ -118,9 +117,9 @@ src/
 - Nested routes use subfolders: `orders/order/page.tsx` for `/order/:orderId`
 
 ### Shared code location
-- `shared/components/` - Only truly reusable UI components (LoadingSpinner, StatusBadge, EmptyState, PageContainer)
-- `shared/layouts/` - App-level layout components (Header, ProtectedLayout, AdminLayout)
-- `shared/hooks/` - Custom hooks shared across themes
+- `components/` - Only truly reusable UI components (LoadingSpinner, StatusBadge, EmptyState, PageContainer)
+- `layouts/` - App-level layout components (Header, ProtectedLayout, AdminLayout)
+- `hooks/` - Custom hooks shared across themes
 - `contexts/` - Global state (AuthContext, ProductsContext)
 - `api/` - API client functions
 

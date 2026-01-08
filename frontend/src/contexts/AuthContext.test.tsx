@@ -66,7 +66,7 @@ describe('AuthContext', () => {
     expect(localStorage.getItem('user')).toBe(null);
   });
 
-  it('should restore auth state from localStorage', async () => {
+  it('should restore auth state localStorage', async () => {
     const mockUser = { id: 1, username: 'testuser', email: 'test@example.com', is_staff: false };
     const mockToken = 'test-token-123';
     localStorage.setItem('token', mockToken);

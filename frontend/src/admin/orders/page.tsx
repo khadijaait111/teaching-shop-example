@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { getAdminOrders, type AdminOrder } from '../../api/orders';
-import { LoadingSpinner, EmptyState, PageContainer } from '../../shared/components';
+import { LoadingSpinner, EmptyState, PageContainer } from '../../components';
 import AdminOrderCard from './AdminOrderCard';
 import DailyRevenueChart from './DailyRevenueChart';
 

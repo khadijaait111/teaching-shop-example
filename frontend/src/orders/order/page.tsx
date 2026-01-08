@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { getOrder, type Order } from '../../api/orders';
-import { LoadingSpinner, PageContainer } from '../../shared/components';
+import { LoadingSpinner, PageContainer } from '../../components';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import OrderDetails from './OrderDetails';
 
