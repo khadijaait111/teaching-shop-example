@@ -1,26 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getAdminOrders, type AdminOrder } from '../api/orders';
+import DailyRevenueChart from '../components/DailyRevenueChart';
 
 export default function AdminOrdersPage() {
-  const { token, user, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const { token } = useAuth();
   const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
-
-    if (!user?.is_staff) {
-      navigate('/');
-      return;
-    }
-
     async function fetchOrders() {
       if (!token) return;
 
@@ -35,7 +24,7 @@ export default function AdminOrdersPage() {
     }
 
     fetchOrders();
-  }, [token, user, isAuthenticated, navigate]);
+  }, [token]);
 
   if (loading) {
     return (
@@ -57,6 +46,10 @@ export default function AdminOrdersPage() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Panel - All Orders</h1>
+
+        <div className="mb-8">
+          <DailyRevenueChart orders={orders} />
+        </div>
 
         {orders.length === 0 ? (
           <div className="text-center py-12">

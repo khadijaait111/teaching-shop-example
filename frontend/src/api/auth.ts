@@ -51,3 +51,17 @@ export async function register(username: string, email: string, password: string
 
   return data as AuthResponse;
 }
+
+export async function getMe(token: string): Promise<User> {
+  const response = await fetch(`${API_BASE}/auth/me/`, {
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Token validation failed');
+  }
+
+  return response.json();
+}

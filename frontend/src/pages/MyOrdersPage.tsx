@@ -1,20 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { getOrders, type Order } from '../api/orders';
 
 export default function MyOrdersPage() {
-  const { token, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const { token } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
-
     async function fetchOrders() {
       if (!token) return;
 
@@ -27,7 +21,7 @@ export default function MyOrdersPage() {
     }
 
     fetchOrders();
-  }, [token, isAuthenticated, navigate]);
+  }, [token]);
 
   if (loading) {
     return (

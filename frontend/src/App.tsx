@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import ProtectedLayout from './components/ProtectedLayout';
+import AdminLayout from './components/AdminLayout';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -16,10 +18,14 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/checkout/:productId" element={<CheckoutPage />} />
-        <Route path="/order/:orderId" element={<OrderConfirmationPage />} />
-        <Route path="/orders" element={<MyOrdersPage />} />
-        <Route path="/admin-panel" element={<AdminOrdersPage />} />
+        <Route element={<ProtectedLayout />}>
+          <Route path="/checkout/:productId" element={<CheckoutPage />} />
+          <Route path="/order/:orderId" element={<OrderConfirmationPage />} />
+          <Route path="/orders" element={<MyOrdersPage />} />
+        </Route>
+        <Route path="/admin-panel" element={<AdminLayout />}>
+          <Route index element={<AdminOrdersPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

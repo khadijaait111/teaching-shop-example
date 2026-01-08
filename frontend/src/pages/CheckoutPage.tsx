@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useProducts } from '../contexts/ProductsContext';
@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 export default function CheckoutPage() {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
-  const { token, isAuthenticated } = useAuth();
+  const { token } = useAuth();
   const { products } = useProducts();
   const [cardNumber, setCardNumber] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,12 +24,6 @@ export default function CheckoutPage() {
     setCardNumber(raw);
   };
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-  }, [isAuthenticated, navigate]);
-
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -40,12 +34,7 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!token) {
-      toast.error('Please log in first');
-      navigate('/login');
-      return;
-    }
+    if (!token) return;
 
     setLoading(true);
 

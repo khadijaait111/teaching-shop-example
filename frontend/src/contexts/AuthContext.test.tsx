@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
+import { renderHook, act, waitFor } from '@testing-library/react';
 import { AuthContextProvider, useAuth } from './AuthContext';
+
+vi.mock('../api/auth', () => ({
+  getMe: vi.fn(),
+}));
+
+import { getMe } from '../api/auth';
 
 describe('AuthContext', () => {
   beforeEach(() => {
@@ -60,18 +66,46 @@ describe('AuthContext', () => {
     expect(localStorage.getItem('user')).toBe(null);
   });
 
-  it('should restore auth state from localStorage', () => {
+  it('should restore auth state from localStorage', async () => {
     const mockUser = { id: 1, username: 'testuser', email: 'test@example.com', is_staff: false };
     const mockToken = 'test-token-123';
     localStorage.setItem('token', mockToken);
-    localStorage.setItem('user', JSON.stringify(mockUser));
+
+    vi.mocked(getMe).mockResolvedValue(mockUser);
 
     const { result } = renderHook(() => useAuth(), {
       wrapper: AuthContextProvider,
     });
 
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
     expect(result.current.isAuthenticated).toBe(true);
     expect(result.current.token).toBe(mockToken);
     expect(result.current.user).toEqual(mockUser);
+    expect(getMe).toHaveBeenCalledWith(mockToken);
+  });
+
+  it('should clear auth state if token validation fails', async () => {
+    const mockToken = 'invalid-token';
+    localStorage.setItem('token', mockToken);
+    localStorage.setItem('user', JSON.stringify({ id: 1, username: 'old' }));
+
+    vi.mocked(getMe).mockRejectedValue(new Error('Token validation failed'));
+
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthContextProvider,
+    });
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.token).toBe(null);
+    expect(result.current.user).toBe(null);
+    expect(localStorage.getItem('token')).toBe(null);
+    expect(localStorage.getItem('user')).toBe(null);
   });
 });

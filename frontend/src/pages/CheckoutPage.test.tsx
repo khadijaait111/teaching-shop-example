@@ -4,12 +4,13 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from '../contexts/AuthContext';
 import { ProductsContextProvider } from '../contexts/ProductsContext';
+import ProtectedLayout from '../components/ProtectedLayout';
 import CheckoutPage from './CheckoutPage';
 
 const renderCheckoutPage = (isAuthenticated = true) => {
   if (isAuthenticated) {
     localStorage.setItem('token', 'test-token');
-    localStorage.setItem('user', JSON.stringify({ id: 1, username: 'testuser', email: 'test@example.com' }));
+    localStorage.setItem('user', JSON.stringify({ id: 1, username: 'testuser', email: 'test@example.com', is_staff: false }));
   }
 
   return render(
@@ -17,7 +18,9 @@ const renderCheckoutPage = (isAuthenticated = true) => {
       <AuthContextProvider>
         <ProductsContextProvider>
           <Routes>
-            <Route path="/checkout/:productId" element={<CheckoutPage />} />
+            <Route element={<ProtectedLayout />}>
+              <Route path="/checkout/:productId" element={<CheckoutPage />} />
+            </Route>
             <Route path="/login" element={<div>Login Page</div>} />
           </Routes>
         </ProductsContextProvider>

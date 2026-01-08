@@ -165,6 +165,18 @@ def login(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def me(request):
+    user = request.user
+    return Response({
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'is_staff': user.is_staff
+    })
+
+
+@api_view(['GET'])
 @permission_classes([IsAdminUser])
 def admin_orders(request):
     orders = Order.objects.all().order_by('-created_at')
@@ -182,5 +194,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/auth/register/', register, name='register'),
     path('api/auth/login/', login, name='login'),
+    path('api/auth/me/', me, name='me'),
     path('api/admin/orders/', admin_orders, name='admin-orders'),
 ]
