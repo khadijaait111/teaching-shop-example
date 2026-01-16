@@ -8,7 +8,6 @@ These tests verify that:
 
 from django.test import TestCase
 from rest_framework.test import APIClient
-from rest_framework import status
 
 from ..models import Product
 
@@ -75,7 +74,7 @@ class ProductAPITests(TestCase):
         # TODO: Assert that the response contains exactly 2 products
         # Hint: response.data is a list of products
         # Hint: Use len() to count items
-        pass  # Replace with your assertion
+        self.assertEqual(len(response.data), 2)
 
     def test_product_data_contains_required_fields(self):
         """Each product in the response should have name, price, and imageUrl"""
