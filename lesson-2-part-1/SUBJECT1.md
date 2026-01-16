@@ -68,6 +68,7 @@ Then install it:
 cd backend
 uv sync --extra dev
 ```
+uv: gestionnaire de dépendances Python b7al npm
 
 ### Step 2: Create Ruff configuration
 
