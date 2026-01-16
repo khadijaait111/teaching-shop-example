@@ -28,7 +28,7 @@ class ProductModelTests(TestCase):
         # TODO: Assert that converting the product to string gives us the product name
         # Hint: Use str(product) to get the string representation
         # Hint: Use self.assertEqual(actual, expected)
-        pass  # Replace this line with your assertion
+        self.assertEqual(str(product), "Baby Romper")
 
     def test_product_has_correct_fields(self):
         """A Product should store all its fields correctly"""
@@ -42,8 +42,10 @@ class ProductModelTests(TestCase):
         # TODO: Assert that each field has the correct value
         # Hint: Access fields like product.name, product.price, etc.
         # Hint: For price, compare as string since it's stored as Decimal
-        pass  # Replace with your assertions
-
+        self.assertEqual(product.name, "Baby Dress")
+        self.assertEqual(product.description, "Cute floral dress")
+        self.assertEqual(str(product.price), "29.99")
+        self.assertEqual(product.imageUrl, "/images/dress.jpg")
 
 class ProductAPITests(TestCase):
     """Test the Product API endpoints"""
@@ -72,7 +74,7 @@ class ProductAPITests(TestCase):
 
         # TODO: Assert the response status code is 200 OK
         # Hint: Use status.HTTP_200_OK constant
-        pass  # Replace with your assertion
+        self.assertEqual(len(response.data), 2)
 
     def test_list_products_returns_all_products(self):
         """GET /api/products/ should return all products in the database"""
@@ -90,4 +92,6 @@ class ProductAPITests(TestCase):
 
         # TODO: Assert that the product has 'name', 'price', and 'imageUrl' keys
         # Hint: Use self.assertIn(key, dictionary) to check if a key exists
-        pass  # Replace with your assertions
+        self.assertIn("name", product)
+        self.assertIn("price", product)
+        self.assertIn("imageUrl", product)
